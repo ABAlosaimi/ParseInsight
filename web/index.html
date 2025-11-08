@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParseInsight - HTTP Parser Benchmark</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ParseInsight</h1>
+            <p class="subtitle">HTTP Parser Performance Analyzer</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <h2>Test Your HTTP Message</h2>
+
+                <div class="form-group">
+                    <label for="httpMessage">HTTP Message:</label>
+                    <textarea id="httpMessage" rows="12" placeholder="Paste your raw HTTP request or response here...
+
+Example Request:
+GET /api/users HTTP/1.1
+Host: example.com
+User-Agent: Mozilla/5.0
+Accept: application/json
+
+Example Response:
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 27
+
+{&quot;message&quot;:&quot;Hello World&quot;}"></textarea>
+                </div>
+
+                <div class="config-grid">
+                    <div class="form-group">
+                        <label for="messageType">Message Type:</label>
+                        <select id="messageType">
+                            <option value="">Auto-detect</option>
+                            <option value="request">Request</option>
+                            <option value="response">Response</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iterations">Iterations:</label>
+                        <input type="number" id="iterations" value="10000" min="1" max="10000000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="concurrency">Concurrency:</label>
+                        <input type="number" id="concurrency" value="1" min="1" max="100">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Parser Libraries:</label>
+                    <div class="libraries-checkboxes" id="librariesContainer">
+                        <label><input type="checkbox" value="net/http" checked> net/http</label>
+                        <label><input type="checkbox" value="fasthttp" checked> fasthttp</label>
+                    </div>
+                </div>
+
+                <button id="runBenchmark" class="btn-primary">Run Benchmark</button>
+                <div id="loading" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Running benchmark...</p>
+                </div>
+            </section>
+
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <h2>Results</h2>
+
+                <div class="recommendation" id="recommendation"></div>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <canvas id="opsChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="timeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="resultsTable">
+                        <thead>
+                            <tr>
+                                <th>Library</th>
+                                <th>Ops/Second</th>
+                                <th>Avg Time/Parse</th>
+                                <th>Memory Allocated</th>
+                                <th>Allocs/Op</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Built with Go | Test your HTTP parsers in real-time</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
