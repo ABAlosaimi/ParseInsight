@@ -37,12 +37,12 @@ func (h *Handler) HandleBenchmark(w http.ResponseWriter, r *http.Request) {
 
 	// Create HTTP message from request
 	msg := benchmark.HTTPMessage{
-		Raw:         req.Message,
+		Raw: req.Message,
 		MessageType: req.MessageType,
 		TestConfig: benchmark.TestConfig{
-			Iterations:  req.Iterations,
-			Concurrency: req.Concurrency,
-			Libraries:   req.Libraries,
+		Iterations:  req.Iterations,
+		Concurrency: req.Concurrency,
+		Libraries:   req.Libraries,
 		},
 	}
 
