@@ -30,12 +30,11 @@ func (h *Handler) HandleBenchmark(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req BenchmarkRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil { // the request is gets serilized here 
 		h.writeError(w, "Invalid request body: "+err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	// Create HTTP message from request
 	msg := benchmark.HTTPMessage{
 		Raw: req.Message,
 		MessageType: req.MessageType,
@@ -46,14 +45,12 @@ func (h *Handler) HandleBenchmark(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	// Run benchmark
 	result, err := h.runner.Run(msg)
 	if err != nil {
 		h.writeError(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	// Write response
 	h.writeJSON(w, result, http.StatusOK)
 }
 

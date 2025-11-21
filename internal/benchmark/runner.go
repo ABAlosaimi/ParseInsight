@@ -38,6 +38,7 @@ func (r *Runner) Run(msg HTTPMessage) (*Result, error) {
 	results := make([]adapters.BenchmarkResult, 0, len(msg.TestConfig.Libraries))
 
 	for _, libName := range msg.TestConfig.Libraries {
+		
 		adapter, err := r.registry.Get(libName, msg.MessageType)
 		if err != nil {
 			results = append(results, adapters.BenchmarkResult{

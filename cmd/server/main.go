@@ -20,12 +20,11 @@ func main() {
 	fs := http.FileServer(http.Dir("web/static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	// Start server
 	port := "8080"
-	fmt.Printf("🚀 ParseInsight server starting on http://localhost:%s\n", port)
-	fmt.Println("📊 Ready to benchmark HTTP parsers!")
+	fmt.Printf("ParseInsight server starting on http://localhost:%s\n", port)
+	fmt.Println("Ready to benchmark HTTP parsers")
 
 	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		log.Fatal("Server failed to start:", err)
+		log.Fatal("Server failed to start: ", err)
 	}
 }
