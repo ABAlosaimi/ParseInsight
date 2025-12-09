@@ -14,12 +14,8 @@ func NewRegistry() *Registry {
 	}
 
 	// Register available adapters
-	r.Register("net/http", func(mt string) ParserAdapter {
-		return NewNetHTTPAdapter(mt)
-	})
-	r.Register("fasthttp", func(mt string) ParserAdapter {
-		return NewFastHTTPAdapter(mt)
-	})
+	r.Register("net/http", func(mt string) ParserAdapter {return NewNetHTTPAdapter(mt)})
+	r.Register("fasthttp", func(mt string) ParserAdapter {return NewFastHTTPAdapter(mt)})
 
 	return r
 }
